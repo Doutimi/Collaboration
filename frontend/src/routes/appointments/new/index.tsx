@@ -2,14 +2,36 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/Header";
 import { Input } from "@/components/Input";
 import "../appointments.css";
+import type { FormEvent } from "react";
 
+
+
+const HandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const formData = new FormData(e.currentTarget);
+  let data = Object.fromEntries(formData);
+  let id=(Math.random()*10000).toFixed(0);
+  data.id=id
+  console.log(data);
+
+  let response = await fetch("http://127.0.0.1:3000/appointments/new",{
+    method:"POST",
+    body:JSON.stringify(data),
+    headers:{
+      "Content-Type":"application/json"
+    }
+  })
+
+  if(response.ok) window.location.href=`http://${window.location.host}/appointments`
+
+}
 export default function New() {
   return (
     <>
       <Header link="../../bills" />
       <h2>New Appointment</h2>
       <section className="form-container">
-        <form id="appointments">
+        <form id="appointments" onSubmit={HandleSubmit}>
           <Input
             name="name"
             title="Name of appointment"
