@@ -34,7 +34,7 @@ const Bills = () => {
       <h2>Bills</h2>
       <section className="container" id="container">
         {bills.map(({ name, date }) => (
-          <div className="list-item">
+          <div className="list-item list-none">
             <span className="bill-name">{name}</span>
             <span className="bill-date">{date.toDateString()}</span>
           </div>
