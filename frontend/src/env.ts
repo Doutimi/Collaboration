@@ -4,7 +4,7 @@ const envVariables = z.object({
   VITE_API_BASE_URL: z.string().optional(),
 });
 
-export const env = envVariables.parse(process.env);
+export const env = envVariables.parse(import.meta.env);
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

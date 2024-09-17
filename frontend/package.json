@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "start": "vite",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json}\"",
     "typecheck": "tsc -p tsconfig.app.json --noEmit"
