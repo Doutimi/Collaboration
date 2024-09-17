@@ -1,6 +1,7 @@
 # Auth
 
 1. Login - POST /auth/login
+1. Confirm Login - POST /auth/login/confirm
 2. Signup - POST /auth/sign-up
 3. Refresh Token - POST /auth/refresh-token
 4. User profile - GET /auth/me

@@ -1,24 +1,33 @@
 import { Input } from "@/components/Input";
-import { signUpResponseSchema } from "@/hooks/useSignUp";
+import { signUpRequestSchema, useSignUp } from "@/hooks/api/auth/use-sign-up";
 import { createFileRoute } from "@tanstack/react-router";
 import type { FormEvent } from "react";
-
+import { useNavigate } from "@tanstack/react-router";
 
 const SignUp = () => {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const signUp = useSignUp();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const username = formData.get("username");
 
-    const parsedFormValues = signUpResponseSchema.parse({
+    const parsedFormValues = signUpRequestSchema.parse({
       email,
       username,
     });
 
-    // TODO: Send form data to server
-    alert(JSON.stringify(parsedFormValues));
+    console.log(JSON.stringify(parsedFormValues));
+
+    try {
+      await signUp(parsedFormValues);
+      navigate({ to: "/auth/login" });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <form onSubmit={handleSubmit}>

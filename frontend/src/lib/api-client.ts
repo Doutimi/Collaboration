@@ -7,3 +7,5 @@ export const apiClient = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+// TODO: add inteceptors for automaitcally adding access token to requests apart from public routes
