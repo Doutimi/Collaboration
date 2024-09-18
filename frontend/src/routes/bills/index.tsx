@@ -41,7 +41,7 @@ const Bills = () => {
         ))}
       </section>
       <div className="frame container">
-        <a href="./new">
+        <a href={`${window.location.href}/new`}>
           <button type="button">New Bill</button>
         </a>
       </div>
