@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 const bills = [
   {
@@ -41,9 +41,9 @@ const Bills = () => {
         ))}
       </section>
       <div className="frame container">
-        <a href={`${window.location.href}/new`}>
+        <Link to="/bills/new">
           <button type="button">New Bill</button>
-        </a>
+        </Link>
       </div>
     </>
   );
