@@ -1,44 +1,38 @@
+import { Header } from "@/components/Header";
+import { Fetch } from "@/lib/api";
+import type { BillsData } from "@/types";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
-const bills = [
-  {
-    name: "Rent",
-    date: new Date(2024, 12, 1),
-  },
-  {
-    name: "Electricity",
-    date: new Date(2024, 11, 4),
-  },
-  {
-    name: "Water",
-    date: new Date(2024, 10, 5),
-  },
-];
+
+async function FetchEntries(){
+  let data=await Fetch<BillsData[]>(`http://127.0.0.1:3000/bills/list`);
+  return data
+}
 
 const Bills = () => {
+  let [bills,setEntries]=useState<BillsData[]>([])
+  useEffect(()=>{
+    FetchEntries().then((data)=>{
+      console.log(data)
+      setEntries(data)
+    })
+  },[]);
+
+  let entries=bills.map(({ name, date,id }) => (
+    <div className="list-item list-none">
+      <a href={`/bills/edit/${id}`}>
+        <span className="bill-name">{name}</span>
+      </a>
+      <span className="bill-date">{(new Date(date)).toDateString()}</span>
+    </div>
+  ))
   return (
     <>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li className="active">Bills</li>
-            <li>
-              <a href="../appointments/">Appointments</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <Header activeTab="bills" />
       <h2>Bills</h2>
       <section className="container" id="container">
-        {bills.map(({ name, date }) => (
-          <div className="list-item list-none">
-            <span className="bill-name">{name}</span>
-            <span className="bill-date">{date.toDateString()}</span>
-          </div>
-        ))}
+        {entries}
       </section>
       <div className="frame container">
         <Link to="/bills/new">
@@ -52,3 +46,4 @@ const Bills = () => {
 export const Route = createFileRoute("/bills/")({
   component: Bills,
 });
+

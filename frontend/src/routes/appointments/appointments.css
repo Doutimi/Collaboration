@@ -36,9 +36,9 @@ li:hover {
     background-color: cornsilk;
 }
 
-.active {
+/* .active {
     background-color: #FDBF8B;
-}
+} */
 
 h2{
     padding: 1px;
@@ -140,6 +140,7 @@ label{
     margin: 0 auto;
     margin-top: 18px; 
     display: flex;
+    justify-content: space-between;
     padding: 0;
 }
 
@@ -150,7 +151,7 @@ button{
     font-family: Niveau grotesk;
     font-size:14pt;
     cursor: pointer;
-    background-color: inherit;
+    background-color: #F0EDEB;
     margin-top: 0.3em;
 }
 

@@ -8,8 +8,9 @@ const billsFilePath ='./data/bills.json';
 export default function RouteBills(app:Express){
     //endpoint to get bills list
     app.get("/bills/list",(req,res)=>{
+        console.log("bills list requested".green)
         let billsData:BillsData[]=ReadFile(billsFilePath,[]);
-        console.log({billsData})
+        // console.log({billsData})
         res.send(billsData)
     })
 

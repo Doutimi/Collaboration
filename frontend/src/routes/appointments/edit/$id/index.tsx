@@ -1,6 +1,8 @@
 import { createFileRoute, useParams } from '@tanstack/react-router'
+import { Link } from "@tanstack/react-router";
 import { Header } from '@/components/Header'
 import { Input } from '@/components/Input'
+import { Icons } from '@/components/Icons'
 import '../../appointments.css'
 import { useEffect, useState, type FormEvent } from 'react'
 import type { AppointmentsData } from '@/types'
@@ -53,7 +55,7 @@ export default function New() {
   // let route=useParams({})
   return (
     <>
-      <Header link="../../bills" />
+      <Header activeTab='appointments' />
       <h2>Edit Appointment</h2>
       <section className="form-container">
         <form id="appointments" onSubmit={HandleSubmit}>
@@ -130,8 +132,11 @@ export default function New() {
 
           <div className="btn_frame container">
             <button type="submit">Save</button>
+            <Link to="/appointments">
+              <button type="button">Cancel</button>            
+            </Link>
             <button onClick={HandleDelete}>
-              <img src="../trash icon.svg" alt="delete" />
+              <Icons.trash className="w-5 h-5" />
             </button>
           </div>
         </form>

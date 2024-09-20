@@ -32,7 +32,7 @@ export default function Appointments() {
 
   return (
     <>
-      <Header link="../bills/" />
+      <Header activeTab="appointments" />
       <h2>Appointments</h2>
       <section className={styles.container} id={styles.container}>
         {entries}

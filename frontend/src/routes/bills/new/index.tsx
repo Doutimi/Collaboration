@@ -10,10 +10,10 @@ const NewBill = () => {
               <a href="/">Home</a>
             </li>
             <li className="active">
-              <a href="../">Bills</a>
+              <a href="/bills">Bills</a>
             </li>
             <li>
-              <a href="../../appointments/index.html">Appointments</a>
+              <a href="/appointments">Appointments</a>
             </li>
           </ul>
         </nav>
