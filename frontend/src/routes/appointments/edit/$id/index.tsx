@@ -39,12 +39,14 @@ async function HandleDelete(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
   return false
 }
 export default function New() {
-  let[itemData,setData]=useState<AppointmentsData>()
+  let[itemData,setData]=useState<AppointmentsData>();
+  let [frequency,setFrequency]=useState<AppointmentsData['frequency']>()
   useEffect(()=>{
     async function FetchData(){
       let response =await fetch("http://localhost:3000" +window.location.pathname+"/data") 
       let data:AppointmentsData=await response.json();
-      setData(data)
+      setData(data);
+      setFrequency(data.frequency)
     }
     FetchData()
   },[])
@@ -104,22 +106,22 @@ export default function New() {
           <label>Recurrence:</label>
           <span>
             {/* <Input/> */}
-            <input checked={itemData?.frequency==="Yearly"} 
+            <input checked={frequency==="Yearly"} onClick={()=>setFrequency("Yearly")}  onChange={()=>undefined}
               type="radio" id="yearly" name="frequency" value="Yearly" 
             />
             <label htmlFor="option1"> Yearly</label>
 
-            <input checked={itemData?.frequency==="Monthly"}  
+            <input checked={frequency==="Monthly"} onClick={()=>setFrequency("Monthly")} onChange={()=>undefined}
               type="radio" id="monthly" name="frequency" value="Monthly" 
             />
             <label htmlFor="option2"> Monthly</label>
 
-            <input  checked={itemData?.frequency==="Weekly"}  
+            <input  checked={frequency==="Weekly"} onClick={()=>setFrequency("Weekly")} onChange={()=>undefined}
               type="radio" id="weekly" name="frequency" value="Weekly" 
             />
             <label htmlFor="option3"> Weekly</label>
 
-            <input  checked={itemData?.frequency==="None"}  
+            <input  checked={frequency==="None"} onClick={()=>setFrequency("None")} onChange={()=>undefined}
               type="radio" id="none" name="frequency" value="None" 
             />
             <label htmlFor="option4"> None</label>
