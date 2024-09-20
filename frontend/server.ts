@@ -103,7 +103,6 @@ app.post('/bills/new/save', (req, res) => {
 });
 
 // Endpoint to handle appointment form submission
-// app.post('/appointments/new/save', (req, res) => {
 app.post('/appointments/new', (req, res) => {
     const appointmentsEntry:AppointmentsData = req.body
     console.log({appointmentBody:req.body})
@@ -115,6 +114,49 @@ app.post('/appointments/new', (req, res) => {
     fs.writeFileSync(appointmentsFilePath,JSON.stringify(historyData))
     res.send({message:"Appointment saved successfully"});
 });
+
+app.get("/appointments/edit/:id/data",(req,res)=>{
+    let id=req.params.id
+    console.log(`data  for appointmentID:${id} received`);
+
+    let data:AppointmentsData[]=ReadFile(appointmentsFilePath,[])
+
+    let entryData=data.find(item=>item.id===id)
+    res.send(entryData||{})
+})
+//endpoint to delete a single appointment entry
+app.delete("/appointments/edit/:id",(req,res)=>{
+    console.log({message:"delete request"})
+    let id=req.params.id;
+    let allAppointments:AppointmentsData[]=ReadFile(appointmentsFilePath,[]);
+    //remove the item with the indicated id
+    let filteredData=allAppointments.filter(item=>item.id!==id);
+    //save the edited bills entries
+    fs.writeFileSync(appointmentsFilePath,JSON.stringify(filteredData))
+    res.send({message:"bill entry deleted successfully"});
+})
+//endpoint to save an edited appointment entry
+app.patch("/appointments/edit/:id",(req,res)=>{
+    let id=req.params.id
+    console.log({message:`Save request for appointmentID:${id} received`})
+    
+    let editedData:AppointmentsData={...req.body,id};
+
+    let allAppointmentsData=ReadFile(appointmentsFilePath,[])
+
+    let entryToEdit=allAppointmentsData.find(item=>item.id===id);
+    if(!entryToEdit){
+        res.send();
+        return;
+    }
+    //copy the values in the edited entry into the original entry
+    Object.keys(editedData).forEach(key=>{
+        entryToEdit[key]=editedData[key]
+    })
+
+    fs.writeFileSync(appointmentsFilePath,JSON.stringify(allAppointmentsData))
+    res.send({message:"bill entry edited successfully"});
+})
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

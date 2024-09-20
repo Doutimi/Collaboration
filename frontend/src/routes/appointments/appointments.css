@@ -95,6 +95,10 @@ h2{
     width: 60%
 }
 
+.item-name:hover{
+    color:#e69757;
+}
+
 .bill-date{
     /*display:inline-block; */
     float: right;
