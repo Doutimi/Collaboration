@@ -2,6 +2,8 @@ import {Express} from "express"
 import { BillsData } from "../types";
 import { ReadFile } from "./functions";
 import fs from "fs"
+import colors from "colors"
+colors.enable()
 
 const billsFilePath ='./data/bills.json';
 
@@ -10,7 +12,7 @@ export default function RouteBills(app:Express){
     app.get("/bills/list",(req,res)=>{
         console.log("bills list requested".green)
         let billsData:BillsData[]=ReadFile(billsFilePath,[]);
-        // console.log({billsData})
+        console.log({billsData})
         res.send(billsData)
     })
 
@@ -20,11 +22,11 @@ export default function RouteBills(app:Express){
         console.log({appointmentBody:req.body})
 
         let historyData=ReadFile<BillsData[]>(billsFilePath,[])
-        //append the new data receive int he http body
+        //append the new data receive in the http body
         historyData.push(billsEntry)
 
         fs.writeFileSync(billsFilePath,JSON.stringify(historyData))
-        res.send({message:"bill saved successfully"});
+        res.send({message:"Bill saved successfully"});
     });
 
     app.get("/bills/edit/:id/data",(req,res)=>{
@@ -36,6 +38,7 @@ export default function RouteBills(app:Express){
         let entryData=data.find(item=>item.id===id)
         res.send(entryData||{})
     })
+
     //endpoint to delete a single appointment entry
     app.delete("/bills/edit/:id",(req,res)=>{
         console.log({message:"delete request"})
@@ -47,11 +50,12 @@ export default function RouteBills(app:Express){
         fs.writeFileSync(billsFilePath,JSON.stringify(filteredData))
         res.send({message:"bill entry deleted successfully"});
     })
+
     //endpoint to save an edited appointment entry
     app.patch("/bills/edit/:id",(req,res)=>{
         let id=req.params.id
         console.log({message:`Save request for billsID:${id} received`});
-        console.log("body ".yellow,req.body)
+        console.log("body " .yellow, req.body)
         
         let editedData:BillsData={...req.body,id};
 

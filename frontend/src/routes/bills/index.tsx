@@ -1,5 +1,7 @@
 import { Header } from "@/components/Header";
 import { Fetch } from "@/lib/api";
+import styles from "./bills.module.css";
+import dayjs from "dayjs";
 import type { BillsData } from "@/types";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
@@ -10,7 +12,7 @@ async function FetchEntries(){
   return data
 }
 
-const Bills = () => {
+export default function Bills() {
   let [bills,setEntries]=useState<BillsData[]>([])
   useEffect(()=>{
     FetchEntries().then((data)=>{
@@ -19,22 +21,24 @@ const Bills = () => {
     })
   },[]);
 
-  let entries=bills.map(({ name, date,id }) => (
-    <div className="list-item list-none">
+  let entries=bills.map(({ name, date,id }, index) => (
+    <div className={styles["list-item"]} key={index}>
       <a href={`/bills/edit/${id}`}>
-        <span className="bill-name">{name}</span>
+        <span className={styles["item-name"]}>{name}</span>
       </a>
-      <span className="bill-date">{(new Date(date)).toDateString()}</span>
+      <span className={styles["item-date"]}>
+        {dayjs(date).format("MM/DD/YYYY")}
+      </span>
     </div>
   ))
   return (
     <>
       <Header activeTab="bills" />
       <h2>Bills</h2>
-      <section className="container" id="container">
+      <section className={styles.container} id={styles.container}>
         {entries}
       </section>
-      <div className="frame container">
+      <div className={`${styles.frame} ${styles.container}`}>
         <Link to="/bills/new">
           <button type="button">New Bill</button>
         </Link>

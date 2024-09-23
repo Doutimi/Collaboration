@@ -35,6 +35,7 @@ export default function RouteAppointments(app:Express){
         let entryData=data.find(item=>item.id===id)
         res.send(entryData||{})
     })
+
     //endpoint to delete a single appointment entry
     app.delete("/appointments/edit/:id",(req,res)=>{
         console.log({message:"delete request"})
@@ -46,11 +47,12 @@ export default function RouteAppointments(app:Express){
         fs.writeFileSync(appointmentsFilePath,JSON.stringify(filteredData))
         res.send({message:"bill entry deleted successfully"});
     })
+
     //endpoint to save an edited appointment entry
     app.patch("/appointments/edit/:id",(req,res)=>{
         let id=req.params.id
         console.log({message:`Save request for appointmentID:${id} received`});
-        console.log("body ".yellow,req.body)
+        console.log("body ", req.body)
         
         let editedData:AppointmentsData={...req.body,id};
 
@@ -59,7 +61,7 @@ export default function RouteAppointments(app:Express){
 
         let entryToEdit=allAppointmentsData.find(item=>item.id===id);
         if(!entryToEdit){
-            console.log("entry not found".red)
+            console.log("entry not found")
             res.send();
             return;
         }
