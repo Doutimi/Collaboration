@@ -10,6 +10,12 @@ import { useEffect, useState } from "react";
 async function FetchEntries(){
   let data=await Fetch<BillsData[]>(`http://127.0.0.1:3000/bills/list`);
   return data
+
+//let data=data.sort((a,b)=>{
+//   let dateA=new Date(a.date)
+//   let dateB=new Date(b.date);
+//   return (dateA.getTime()-dateB.getTime()) ;
+// });
 }
 
 export default function Bills() {
