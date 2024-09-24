@@ -14,7 +14,7 @@ const HandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
   data.id=id
   console.log(data);
 
-  let response = await fetch("http://127.0.0.1:3000/appointments/new",{
+  let response = await fetch("http://127.0.0.1:3000/bills/new",{
     method:"POST",
     body:JSON.stringify(data),
     headers:{
@@ -22,7 +22,7 @@ const HandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     }
   })
 
-  if(response.ok) window.location.href=`http://${window.location.host}/appointments`
+  if(response.ok) window.location.href=`http://${window.location.host}/bills`
 
 }
 
@@ -43,9 +43,9 @@ export default function NewBill() {
             required
           />
           <Input
-            name="name"
+            name="amount"
             title="Amount due"
-            htmlFor="name"
+            htmlFor="amount"
             type="number"
             id="amount"
             placeholder="1400"

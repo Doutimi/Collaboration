@@ -70,9 +70,9 @@ export default function New() {
             required
           />
           <Input
-            name="name"
+            name="amount"
             title="Amount due"
-            htmlFor="name"
+            htmlFor="amount"
             type="number"
             id="amount"
             placeholder="1400"
