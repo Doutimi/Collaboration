@@ -27,7 +27,10 @@ RouteBills(app)
 // Path to the JSON file
 const billsFilePath ='./data/bills.json';
 // const appointmentsFilePath ='./data/appointments.json';
-
+app.get("/worker",(req,res)=>{
+    console.log("service worker background message received".green)
+    res.send()
+})
 //endpoint to get bills list
 app.get("/bills/get_list",(req,res)=>{
     let billsData:BillsData[]=ReadFile(billsFilePath,[])
